@@ -1,41 +1,30 @@
-# Task 3
+a = int(input("Enter a: "))
+b = int(input("Enter b: "))
+op = input("Operation: ")
 
-print('Task 3:' + '\n')
+# + - * /
+def sum(a,b):
+    return a + b
 
-helplist = ['1' , '2', '3', '4', '5', '6']
+def minus(a,b):
+	return a - b 
 
-def main():
-	operation = input('\n\nВведите номер операции, которую хотите сделать: \n1) Добавление\n2) Вычитание\n3) Умножение\n4) Деление\n5) Возвести в степень \n6) Деление по модулю\n\n9) Выход\n\n')
+def mult(a, b):
+	return a * b 
 
-	if operation == '9':
-		exit()
-	elif operation not in helplist:
-		print("\nВведите коректную операцию!\n")
-		main() 
+def div(a, b):
+	return a / b
 
-	try:
-		a = float(input("Введите первое число: "))
-		b = float(input("Введите второе число: "))
-	except:
-		print('\nТребуется вводить числа!\n')
-		main()
+match op:
+	case '+':
+		result = sum(a,b)
+	case '-':
+		result = minus(a,b)
+	case '*':
+		result = mult(a,b)
+	case '/':
+		result = div(a,b)
+	case _:
+		print('Оберіть коректну операцію!')
 
-	match operation:
-		case '1':
-			print(a + b)
-		case '2':
-			print(a - b)
-		case '3':
-			print(a * b)
-		case '4':
-			print(a / b)
-		case '5':
-			print(a ** b)
-		case '6':
-			print(a % b)
-	main()
-if __name__ == '__main__':
-	main()
-
-
-
+print(result)
