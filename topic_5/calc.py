@@ -1,27 +1,23 @@
-import functions
+import importlib, functions, operations
 
 while True:
-	try:
-		a = int(input("Enter a: "))
-		b = int(input("Enter b: "))
-	except:
-		print('Ви повинні використовувати числа!')
-		continue
-	op = input("Operation: ")
 
-	match op:
+	number_1 = operations.a
+	number_2 = operations.b
+
+	operation = operations.op
+
+	result = None
+
+	match operation:
 		case '+':
-			result = functions.sum(a,b)
+			result = functions.sum(number_1,number_2)
 		case '-':
-			result = functions.minus(a,b)
+			result = functions.minus(number_1,number_2)
 		case '*':
-			result = functions.mult(a,b)
+			result = functions.mult(number_1,number_2)
 		case '/':
-			try:
-				result = functions.div(a,b)
-			except:
-				print('На нуль ділити не можна!')
-				continue
+			result = functions.div(number_1,number_2)
 		case _:
 			print('Оберіть коректну операцію!')
 
@@ -30,3 +26,5 @@ while True:
 	ext = input('Type E to exit: ')
 	if ext == 'E':
 		exit()
+	else:
+		importlib.reload(operations)
