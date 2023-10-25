@@ -1,8 +1,5 @@
 import csv
 
-def sort_by_name(elem):
-    return elem['name']
-    
 names = []
 
 with open("students.txt", "r") as file:
@@ -10,5 +7,13 @@ with open("students.txt", "r") as file:
     for row in reader:
         names.append({"name":row["Name"], "mark":row["Mark"]})
 
+
+# Сортування по оцінкам
 for name in sorted(names, key=lambda elem: elem['mark']):
+    print(f"Your name is {name['name']} your mark is {name['mark']}")
+
+print('\n')
+
+# Сортування по імені
+for name in sorted(names, key=lambda elem: elem['name']):
     print(f"Your name is {name['name']} your mark is {name['mark']}")
