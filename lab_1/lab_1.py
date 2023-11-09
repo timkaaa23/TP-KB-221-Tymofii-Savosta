@@ -17,17 +17,9 @@ def key_by_val(the_dict, value):
 			KEY = key
 
 def main():
-
+	global students_dir
 	operations = input('Оберіть операцію:\n1) Подивитись довідник\n2) Додати студента\n3) Змінити дані студента\n4) Видалити студента\n\n9) Вихід\n\n')
-
-	if operations == '9':
-		exit()
-	elif operations not in helplist:
-		print("\nОберіть коректну операцію!\n")
-		main() 
-
-
-
+		
 	match operations:
 		case '1':
 			a = 1
@@ -53,6 +45,8 @@ def main():
 					'Адреса': adress,
 					'Кафедра': department,
 					'Група': group} 
+
+			students_dir = dict(sorted(students_dir.items()))	
 		case '3':
 			step_1 = input("Оберіть номер студента, дані якого треба змінити: ")
 
@@ -87,6 +81,7 @@ def main():
 					new_name = input("Уведіть нове ім'я: ")
 					students_dir[new_name] = students_dir[OLD_KEY]
 					del students_dir[OLD_KEY]
+					students_dir = dict(sorted(students_dir.items()))	
 				case '2':
 					new_phone = input("Уведіть новий номер телефону: ")
 					students_dir[OLD_KEY]['Номер телефону'] = new_phone
@@ -125,6 +120,16 @@ def main():
 
 			del students_dir[i]
 			print('\nСтудент видаленний!\n')
+
+		case '9':
+			exit()
+
+		case _:
+			print("\nОберіть коректну операцію!\n")
+			main() 
+
+	
+			
 	print('\n\n')
 	main()
 
