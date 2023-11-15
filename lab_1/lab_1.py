@@ -1,139 +1,100 @@
-# lab_1
-helplist = ['1' , '2', '3', '4']
 
-students_dir = {
+## List [Item1, Item2, Item3]
+## Item {"name":"Jon", "phone":"0631234567"}
 
-	'Tymofii Savosta': {'Номер телефону': '+380 93 020 74 42',
-						'Eлектронна пошта': 'timka023@icloud.com',
-						'Адреса': 'Чернигів, Пухова 115, кв. 1',
-						'Кафедра': 'Кафедра кібербезпеки й математичного моделювання',
-						'Група': 'КБ221'}, 
-	}
+# already sorted list
+list = [
+    {"name":"Bob", "phone":"0631234567", 'email': 'Bob06@gmail.com', 'group': 'KB221'},
+    {"name":"Emma", "phone":"0631234567", 'email': 'Emma@gmail.com', 'group': 'KB222'},
+    {"name":"Jon",  "phone":"0631234567", 'email': 'jonwatson@gmail.com', 'group': 'AM211'},
+    {"name":"Zak",  "phone":"0631234567", 'email': 'isaak@gmail.com', 'group': 'KI105'}
+]
 
-def key_by_val(the_dict, value):
-	global KEY 
-	for key, val in the_dict.items():
-		if key == value:
-			KEY = key
+def printAllList():
+    for elem in list:
+        strForPrint = f"Student name is {elem['name']},  Phone is {elem['phone']}, E-mail is {elem['email']}, Group is {elem['group']}"
+        print(strForPrint)
+    return
+
+def addNewElement():
+    name = input("Pease enter student name: ")
+    name = name.capitalize()
+    phone = input("Please enter student phone: ")
+    email = input("Please enter student email: ")
+    group = input("Please enter student group: ")
+    newItem = {"name": name, "phone": phone, 'email': email, 'group': group}
+    # find insert position
+    insertPosition = 0
+    for item in list:
+        if name > item["name"]:
+            insertPosition += 1
+        else:
+            break
+    list.insert(insertPosition, newItem)
+    print("New element has been added")
+    return
+
+def deleteElement():
+    name = input("Please enter name to be delated: ")
+    deletePosition = -1
+    for item in list:
+        if name == item["name"]:
+            deletePosition = list.index(item)
+            break
+    if deletePosition == -1:
+        print("Element was not found")
+    else:
+        print("Dele position " + str(deletePosition))
+        # list.pop(deletePosition)
+        del list[deletePosition]
+    return
+
+
+def updateElement():
+	name = input("Please enter name to be updated: ")
+	counter = 0
+	for elem in list:
+		if elem['name'] == name:
+			new_name = input("Pease enter new student name: ")
+			new_name = new_name.capitalize()
+
+			elem['name'] = new_name
+			print(elem)
+
+			insertPosition = 0
+			for item in list:
+				if new_name > item["name"]:
+					insertPosition += 1
+				elif new_name < item['name']:
+					break
+			list.insert(insertPosition, list.pop(counter))
+			print("Element has been changed")
+			return
+		counter += 1
+    # implementation required
 
 def main():
-	global students_dir
-	operations = input('Оберіть операцію:\n1) Подивитись довідник\n2) Додати студента\n3) Змінити дані студента\n4) Видалити студента\n\n9) Вихід\n\n')
-		
-	match operations:
-		case '1':
-			a = 1
-			for i in students_dir:
-				
-				print('\n', a, i + ':')
-				a += 1
-				for j in students_dir[i]:
-
-					key_by_val(students_dir[i], j),
-					print('\t', KEY, ' - ', students_dir[i][j])
-		case '2':
-			new_key 	= input("Уведіть ім'я студента: ")
-			phone_num 	= input('Уведіть номер телефону студента: ')
-			email 		= input('Уведіть електронну пошту студента: ')
-			adress 		= input('Уведіть адресу студента: ')
-			department 	= input('Уведіть кафедру студента: ')
-			group 		= input('Уведіть групу студента: ')
-
-			students_dir[new_key] = {	
-					'Номер телефону': phone_num,
-					'Электронна пошта': email,
-					'Адреса': adress,
-					'Кафедра': department,
-					'Група': group} 
-
-			students_dir = dict(sorted(students_dir.items()))	
-		case '3':
-			step_1 = input("Оберіть номер студента, дані якого треба змінити: ")
-
-			try:
-				if int(step_1) > len(students_dir) or int(step_1) < 1:
-					print('Такого номера не існує!')
-					main()
-
-			except:
-				print('Такого номера не існує!')
-				main()
-
-			nummer = 1
-			OLD_KEY = ''
-			for i in students_dir:
-				if nummer == int(step_1):
-					OLD_KEY = i
-				else: nummer += 1
-
-			print('\n' + OLD_KEY + '\n')
-			step_2 = input("Оберіть дані студента, які треба змінити:\n1) Ім'я\n2) Номер телефону\n3) Електронна пошта\n4) Адреса\n5) Кафедра\n6) Група\n")
-			try:
-				if int(step_2) > 6 or int(step_1) < 1:
-					print('Такого номера не існує!')
-					main()
-			except:
-				print('Такого номера не існує!')
-				main()
-
-			match step_2:
-				case '1':
-					new_name = input("Уведіть нове ім'я: ")
-					students_dir[new_name] = students_dir[OLD_KEY]
-					del students_dir[OLD_KEY]
-					students_dir = dict(sorted(students_dir.items()))	
-				case '2':
-					new_phone = input("Уведіть новий номер телефону: ")
-					students_dir[OLD_KEY]['Номер телефону'] = new_phone
-
-				case '3':
-					new_email = input("Уведіть нову електронну пошту: ")
-					students_dir[OLD_KEY]['Електронна пошта'] = new_email
-				case '4':
-					new_adress = input("Уведіть нову адресу: ")
-					students_dir[OLD_KEY]['Адреса'] = new_adress
-				case '5':
-					new_department = input("Уведіть нову кафедру: ")
-					students_dir[OLD_KEY]['Кафедра'] = new_department
-				case '6':
-					new_group = input("Уведіть нову групу: ")
-					students_dir[OLD_KEY]['Група'] = new_group
-
-			print('\n\tРезультат збереженний!\n')
-
-		case '4':
-			stud_num = input("Оберіть номер студента, якого потребно видалити: ")
-			try:
-				if int(stud_num) > len(students_dir) or int(stud_num) < 1:
-					print('Такого номера не існує!')
-					main()
-
-			except:
-				print('Такого номера не існує!')
-				main()
-
-			nummer = 1
-			for i in students_dir:
-				if nummer == int(stud_num):
-					break
-				else: nummer += 1
-
-			del students_dir[i]
-			print('\nСтудент видаленний!\n')
-
-		case '9':
-			exit()
-
-		case _:
-			print("\nОберіть коректну операцію!\n")
-			main() 
-
-	
-			
-	print('\n\n')
-	main()
+    while True:
+        chouse = input("Please specify the action [ C create, U update, D delete, P print,  X exit ] ")
+        match chouse.upper():
+            case "C":
+                print("New element will be created:")
+                addNewElement()
+                printAllList()
+            case "U":
+                print("Existing element will be updated")
+                updateElement()
+            case "D":
+                print("Element will be deleted")
+                deleteElement()
+            case "P":
+                print("List will be printed")
+                printAllList()
+            case "X":
+                print("Exit()")
+                break
+            case _:
+                print("Wrong chouse")
 
 
-
-if __name__ == '__main__':
-	main()
+main()
