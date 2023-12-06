@@ -28,15 +28,15 @@ def addNewElement():
 
     with open(csv_file_name) as reader_file:
         reader = csv.DictReader(reader_file)
-        data = list(reader)
+        students = list(reader)
 
-    sorted_data = sorted(data, key=lambda row: row['name'])
+    sorted_students = sorted(students, key=lambda row: row['name'])
 
     with open(csv_file_name, 'w') as csvfile:
         fieldnames = ['name', 'phone', 'email', 'group']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader() 
-        for row in sorted_data:
+        for row in sorted_students:
             writer.writerow(row) 
     print("New element has been added")
     return
@@ -46,18 +46,18 @@ def deleteElement():
 
     with open(csv_file_name, 'r', newline='') as file:
         reader = csv.DictReader(file)
-        data = list(reader)
+        students = list(reader)
 
-    for i, row in enumerate(data):
+    for i, row in enumerate(students):
         if row['name'] == name:
-            del data[i]
+            del students[i]
             break
 
     with open(csv_file_name, 'w', newline='') as csvfile:
         fieldnames = reader.fieldnames
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
-        for row in data:
+        for row in students:
             writer.writerow(row) 
     return
 
@@ -66,21 +66,21 @@ def updateElement():
     name = input("Please enter name to be updated: ")
     with open(csv_file_name, 'r', newline='') as file:
         reader = csv.DictReader(file)
-        data = list(reader)
+        students = list(reader)
 
 
-    for i, row in enumerate(data):
+    for i, row in enumerate(students):
         if row['name'] == name:
             new_name = input("Please enter new name: ")
-            data[i].update({'name': new_name, 'phone': row['phone'], 'email': row['email'], 'group': row['group']})
+            students[i].update({'name': new_name, 'phone': row['phone'], 'email': row['email'], 'group': row['group']})
             
-            sorted_data = sorted(data, key=lambda row: row['name'])
+            sorted_students = sorted(students, key=lambda row: row['name'])
             
             with open(csv_file_name, 'w', newline='') as csvfile:
                 fieldnames = reader.fieldnames
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
-                for row in sorted_data:
+                for row in sorted_students:
                     writer.writerow(row) 
 
             break
